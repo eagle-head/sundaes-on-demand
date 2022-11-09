@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { Row } from "react-bootstrap";
 import ScoopOption from "./ScoopOption";
-import ToppingOption from "./ToopingOption";
+import ToppingOption from "./ToppingOption";
 import AlertBanner from "../common/AlertBanner";
 
 import { formatCurrency } from "../../utils";
@@ -17,7 +17,7 @@ export default function Options({ optionType }) {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:3030/${optionType}`)
+      .get(`http://localhost:3030/${optionType}`)
       .then((response) => setItems(response.data))
       .catch((error) => setError(true));
   }, [optionType]);

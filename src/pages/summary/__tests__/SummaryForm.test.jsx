@@ -24,20 +24,20 @@ describe("SummaryForm", () => {
     await user.click(Checkbox);
     expect(ConfirmButton).toBeDisabled();
   });
-});
 
-test("popover responds to hover", async () => {
-  const user = userEvent.setup();
-  render(<SummaryForm />);
+  test("popover responds to hover", async () => {
+    const user = userEvent.setup();
+    render(<SummaryForm />);
 
-  const NullPopover = screen.queryByText(/no ice cream will actually be delivered/i);
-  expect(NullPopover).not.toBeInTheDocument();
+    const NullPopover = screen.queryByText(/no ice cream will actually be delivered/i);
+    expect(NullPopover).not.toBeInTheDocument();
 
-  const TermsAndConditions = screen.getByText(/terms and conditions/i);
-  await user.hover(TermsAndConditions);
-  const Popover = screen.getByText(/no ice cream will actually be delivered/i);
-  expect(Popover).toBeInTheDocument();
+    const TermsAndConditions = screen.getByText(/terms and conditions/i);
+    await user.hover(TermsAndConditions);
+    const Popover = screen.getByText(/no ice cream will actually be delivered/i);
+    expect(Popover).toBeInTheDocument();
 
-  await user.unhover(TermsAndConditions);
-  expect(Popover).not.toBeInTheDocument();
+    await user.unhover(TermsAndConditions);
+    expect(Popover).not.toBeInTheDocument();
+  });
 });

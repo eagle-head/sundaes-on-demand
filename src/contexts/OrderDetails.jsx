@@ -3,7 +3,7 @@ import { pricePerItem } from "../constants";
 
 const OrderDetails = createContext();
 
-// create custom hook to check whether we're in provider
+// create custom hook to check whether we're in a provider
 export function useOrderDetails() {
   const contextValue = useContext(OrderDetails);
 
@@ -15,14 +15,14 @@ export function useOrderDetails() {
 export function OrderDetailsProvider(props) {
   const [optionCounts, setOptionCounts] = useState({ scoops: {}, toppings: {} });
 
-  function updateItemCount(itemName, newItemCount, optiontype) {
+  function updateItemCount(itemName, newItemCount, optionType) {
     // make a copy of existing state
     const newOptionCounts = { ...optionCounts };
 
     // update the copy with the new information
-    newOptionCounts[optiontype][itemName] = newItemCount;
+    newOptionCounts[optionType][itemName] = newItemCount;
 
-    // update state with the updated state copy
+    // update the state with the updated copy
     setOptionCounts(newOptionCounts);
   }
 
@@ -30,9 +30,9 @@ export function OrderDetailsProvider(props) {
     setOptionCounts({ scoops: {}, toppings: {} });
   }
 
-  // utility function to devire totals from optionCounts state value
+  // utility function to derive totals from optionCounts state value
   function calculateTotal(optionType) {
-    // get an array of counts for the option type (for example: [1, 2])
+    // get an array of counts for the option type (for example, [1, 2])
     const countsArray = Object.values(optionCounts[optionType]);
 
     // total the values in the array of counts for the number of items
@@ -45,6 +45,5 @@ export function OrderDetailsProvider(props) {
   const totals = { scoops: calculateTotal("scoops"), toppings: calculateTotal("toppings") };
 
   const value = { optionCounts, totals, updateItemCount, resetOrder };
-
   return <OrderDetails.Provider value={value} {...props} />;
 }
